@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A web developer's best tools</title>
+    <link rel="icon" type="image/x-icon" href="./web-development-svgrepo-com.svg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        main {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        span {
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        footer {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        .modern-button {
+            background-color: #ffffff;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .modern-button:hover {
+            background-color: #bbbbbb;
+        }
+
+        .modern-button:focus {
+            background-color: #a8a8a8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modern-button:active {
+            background-color: #212529;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>A web developer's best tools</h1>
+    </header>
+    <main>
+        <p>Your IP Address: <span id="ipAddress"></span></p>
+        <p>Browser Language: <span id="browserLanguage"></span></p>
+        <p>User-Agent: <span id="userAgent"></span></p>
+        <p>Screen Resolution: <span id="screenResolution"></span></p>
+        <p>Cookies Enabled: <span id="cookiesEnabled"></span></p>
+        <p>Your Location: <span id="location"></span></p>
+        <p>Device Type: <span id="deviceType"></span></p>
+        <p>Operating System: <span id="operatingSystem"></span></p>
+        <p>Browser Features: <span id="browserFeatures"></span></p>
+        <p>Battery Status: <span id="batteryStatus"></span></p>
+        <p>Camera and Microphone Access: <span id="cameraMicrophoneAccess"></span></p>
+
+        <button class="modern-button"><a href="https://github.com/jaip-coding"><img src="https://github.githubassets.com/images/modules/site/icons/footer/github-mark.svg" width="40" height="40" class="d-block" loading="lazy" decoding="async" alt="GitHub mark"></a></button>
+        <button class="modern-button"><a href="chat.openai.com"><img src="./ChatGPT_logo.svg" width="40" height="40" class="d-block" loading="lazy" decoding="async" alt="ChatGPT mark"></a></a></button>
+        <button class="modern-button"><a href="https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"><img src="./Visual_Studio_Code_1.35_icon.svg" width="40" height="40" class="d-block" loading="lazy" decoding="async" alt="VS-Code mark"></a></a></button>
+        <button class="modern-button"><a href="https://speedtest.net"><img src="./speed-test-svgrepo-com.svg" width="40" height="40" class="d-block" loading="lazy" decoding="async" alt="SpeedTest mark"></a></a></button>
+    </main>
+    <footer>
+        <p>Alles Gute zum 16. Geburtstag Joshua!</p>
+    </footer>
+    <script>
+        // Function to get and display the user's IP address
+        function getIPAddress() {
+            fetch('https://api64.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ipAddress').textContent = data.ip;
+                })
+                .catch(error => {
+                    console.error('Error fetching IP address:', error);
+                    document.getElementById('ipAddress').textContent = 'N/A';
+                });
+        }
+
+        // Function to display browser language and user-agent
+        function displayBrowserInfo() {
+            document.getElementById('browserLanguage').textContent = navigator.language || 'N/A';
+            document.getElementById('userAgent').textContent = navigator.userAgent || 'N/A';
+        }
+
+        // Function to display screen resolution
+        function displayScreenResolution() {
+            document.getElementById('screenResolution').textContent = `${window.screen.width}x${window.screen.height}`;
+        }
+
+        // Function to check if cookies are enabled
+        function checkCookiesEnabled() {
+            document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Yes' : 'No';
+        }
+
+        // Function to request and display user's location
+        function getUserLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    document.getElementById('location').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+                }, function(error) {
+                    console.error('Error fetching location:', error);
+                    document.getElementById('location').textContent = 'N/A';
+                });
+            } else {
+                document.getElementById('location').textContent = 'Location not supported';
+            }
+        }
+
+        // Call the functions to populate the information
+        getIPAddress();
+        displayBrowserInfo();
+        displayScreenResolution();
+        checkCookiesEnabled();
+        getUserLocation();
+
+         // Function to detect device type from User-Agent string
+         function detectDeviceType() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes('mobile')) {
+                return 'Mobile Device';
+            } else if (userAgent.includes('tablet')) {
+                return 'Tablet';
+            } else {
+                return 'Desktop';
+            }
+        }
+
+        // Function to detect operating system from User-Agent string
+        function detectOperatingSystem() {
+            const userAgent = navigator.userAgent;
+            if (userAgent.includes('Windows')) {
+                return 'Windows';
+            } else if (userAgent.includes('Mac OS')) {
+                return 'macOS';
+            } else if (userAgent.includes('Android')) {
+                return 'Android';
+            } else if (userAgent.includes('iOS')) {
+                return 'iOS';
+            } else {
+                return 'Other';
+            }
+        }
+
+        // Function to check for browser features
+        function checkBrowserFeatures() {
+            const supportsGeolocation = 'geolocation' in navigator;
+            const supportsWebRTC = 'RTCPeerConnection' in window;
+            document.getElementById('browserFeatures').textContent = `Geolocation: ${supportsGeolocation}, WebRTC: ${supportsWebRTC}`;
+        }
+
+        // Function to check battery status
+        function checkBatteryStatus() {
+            navigator.getBattery().then(function(battery) {
+                const level = battery.level * 100;
+                document.getElementById('batteryStatus').textContent = `Level: ${level}%`;
+            }).catch(function(error) {
+                console.error('Error fetching battery status:', error);
+                document.getElementById('batteryStatus').textContent = 'N/A';
+            });
+        }
+
+        // Function to check camera and microphone access
+        function checkCameraMicrophoneAccess() {
+            navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+                .then(function(stream) {
+                    document.getElementById('cameraMicrophoneAccess').textContent = 'Allowed';
+                    stream.getTracks().forEach(track => track.stop());
+                })
+                .catch(function(error) {
+                    document.getElementById('cameraMicrophoneAccess').textContent = 'Denied or Not Supported';
+                    console.error('Error accessing camera and microphone:', error);
+                });
+        }
+
+        // Call the functions to populate the information
+        document.getElementById('deviceType').textContent = detectDeviceType();
+        document.getElementById('operatingSystem').textContent = detectOperatingSystem();
+        checkBrowserFeatures();
+        checkBatteryStatus();
+        checkCameraMicrophoneAccess();
+    </script>
+</body>
+</html>
